@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class LoginController {
 
 	private final JwtTokenService jwtTokenService;
