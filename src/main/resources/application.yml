@@ -1,0 +1,55 @@
+server:
+  port: 8088
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/aidriver?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:aidriver}
+    password: ${SPRING_DATASOURCE_PASSWORD:aidriver}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL55Dialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
+      type: info
+      use-sql-comments: true
+      properties:
+        hibernate.use_sql_comments: true
+        hibernate.format_sql: true
+
+springdoc:
+  show-actuator: true
+  paths-to-match: /**
+  packages-to-scan: com.tw.boilerplate.springboot
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+
+logging:
+  level:
+    org.springframework: INFO
+    com.tw.boilerplate.springboot: INFO
+
+jwt:
+  secretKey: ${JWT_SECRET:secret}
+  issuer: ${JWT_ISSUER:https://github.com/DSI-SMU}
+  expirationMinute: 10
+
+swagger:
+  contact-name: Tony Wang
+  contact-mail: ${SWAGGER_CONTACT_MAIL:t.wangzhimin@gmail.com}
+  contact-url: ${SWAGGER_CONTACT_URL:https://zhiminwang.com}
+  app-name: ${SWAGGER_APP_NAME:Spring Boot Boilerplate Project}
+  app-description: "AI-Driver is a tool developed by SMU DSI"
+  app-version: ${SWAGGER_APP_VERSION:2.0.0}
+  app-license-url: ${SWAGGER_APP_LICENSE_URL:https://www.apache.org/licenses/LICENSE-2.0.html}
+  app-license: ${SWAGGER_APP_LICENSE:Apache 2.0}

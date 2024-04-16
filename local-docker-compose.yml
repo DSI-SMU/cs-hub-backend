@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    container_name: db
+    restart: always
+    ports:
+      - "3306:3306" # MySQL uses port 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # Set your desired MySQL root password
+      MYSQL_DATABASE: ${MYSQL_DATABASE} # Replace with your desired database name
+      MYSQL_USER: ${MYSQL_USER} # Replace with your desired MySQL username
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Replace with your desired MySQL password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    container_name: app
+    build:
+      context: .
+    ports:
+      - "8082:8082"
+    environment:
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}" # Replace 'your_database_name' with the same name you used for MYSQL_DATABASE in the db service.
+      - "SPRING_DATASOURCE_USERNAME=${MYSQL_USER}" # Replace 'your_mysql_user' with the same name you used for MYSQL_USER in the db service.
+      - "SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}" # Replace 'your_mysql_password' with the same name you used for MYSQL_PASSWORD in the db service.
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  db_data:

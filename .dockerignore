@@ -1,0 +1,36 @@
+# Exclude development and version control directories
+.dockerignore
+.git
+.gitignore
+
+# Exclude build and IDE directories
+target/
+!target/*.jar
+out/
+build/
+.gradle/
+.idea/
+.vscode/
+
+# Exclude project-specific temporary files and logs
+*.log
+*.log.*
+*.tmp
+
+# Exclude Maven-related files
+mvnw
+mvnw.cmd
+HELP.md
+mvn-*.xml
+
+# Exclude Gradle-related files
+gradle/
+
+# Exclude test reports and generated documentation
+test-reports/
+javadoc/
+jacoco/
+
+# Exclude Docker-related files (if applicable)
+Dockerfile
+docker-compose.yml
