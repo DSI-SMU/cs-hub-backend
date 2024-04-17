@@ -19,11 +19,22 @@ spring:
       properties:
         hibernate.use_sql_comments: true
         hibernate.format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_USERNAME:t.wangzhimin@gmail.com}
+    password: ${GMAIL_PASSWORD:password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 springdoc:
   show-actuator: true
   paths-to-match: /**
-  packages-to-scan: com.tw.boilerplate.springboot
+  packages-to-scan: com.smu
 
 management:
   endpoint:
@@ -37,7 +48,7 @@ management:
 logging:
   level:
     org.springframework: INFO
-    com.tw.boilerplate.springboot: INFO
+    com.smu: INFO
 
 jwt:
   secretKey: ${JWT_SECRET:secret}
@@ -48,7 +59,7 @@ swagger:
   contact-name: Tony Wang
   contact-mail: ${SWAGGER_CONTACT_MAIL:t.wangzhimin@gmail.com}
   contact-url: ${SWAGGER_CONTACT_URL:https://zhiminwang.com}
-  app-name: ${SWAGGER_APP_NAME:Spring Boot Boilerplate Project}
+  app-name: ${SWAGGER_APP_NAME:SMU AI-Driver Web Application}
   app-description: "AI-Driver is a tool developed by SMU DSI"
   app-version: ${SWAGGER_APP_VERSION:2.0.0}
   app-license-url: ${SWAGGER_APP_LICENSE_URL:https://www.apache.org/licenses/LICENSE-2.0.html}

@@ -19,7 +19,7 @@ public class GeneralMessageAccessor {
 	public String getMessage(Locale locale, String key, Object... parameter) {
 
 		if (Objects.isNull(locale)) {
-			return messageSource.getMessage(key, parameter, ProjectConstants.PAKISTAN_LOCALE);
+			return messageSource.getMessage(key, parameter, ProjectConstants.AMERICA_LOCALE);
 		}
 
 		return messageSource.getMessage(key, parameter, locale);

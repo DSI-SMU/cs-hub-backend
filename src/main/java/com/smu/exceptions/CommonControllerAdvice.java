@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 
-@RestControllerAdvice(basePackageClasses = AuthController.class)
-public class RegistrationControllerAdvice {
+@RestControllerAdvice(basePackages = "com.smu.controller")
+public class CommonControllerAdvice {
 
-	@ExceptionHandler(RegistrationException.class)
-	ResponseEntity<ApiExceptionResponse> handleRegistrationException(RegistrationException exception) {
+	@ExceptionHandler(MyRuntimeException.class)
+	ResponseEntity<ApiExceptionResponse> handleRegistrationException(MyRuntimeException exception) {
 
-		final ApiExceptionResponse response = new ApiExceptionResponse(exception.getErrorMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+		final ApiExceptionResponse response = new ApiExceptionResponse(exception.getErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now());
 
 		return ResponseEntity.status(response.getStatus()).body(response);
 	}
