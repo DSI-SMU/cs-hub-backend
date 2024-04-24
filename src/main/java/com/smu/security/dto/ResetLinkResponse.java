@@ -1,4 +1,4 @@
-package com.smu.dto;
+package com.smu.security.dto;
 
 import lombok.*;
 

@@ -1,14 +1,13 @@
 package com.smu.security.service;
 
-import com.smu.dto.ResetLinkResponse;
-import com.smu.security.dto.AuthenticatedUserDto;
-import com.smu.security.dto.RegistrationRequest;
-import com.smu.security.dto.RegistrationResponse;
+import com.smu.security.dto.*;
 import com.smu.model.User;
 
 public interface UserService {
 
 	User findByUsername(String username);
+
+	User findByEmail(String email);
 
 	Boolean existsByEmail(String email);
 
@@ -17,5 +16,7 @@ public interface UserService {
 	AuthenticatedUserDto findAuthenticatedUserByUsername(String username);
 
 	ResetLinkResponse sendResetPasswordLind(String email);
+
+	ResetPasswordResponse resetPassword(ResetPasswordRequest resetPasswordRequest);
 
 }

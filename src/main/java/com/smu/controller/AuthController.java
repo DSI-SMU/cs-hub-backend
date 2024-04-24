@@ -1,10 +1,6 @@
 package com.smu.controller;
 
-import com.smu.dto.ResetLinkResponse;
-import com.smu.security.dto.LoginRequest;
-import com.smu.security.dto.LoginResponse;
-import com.smu.security.dto.RegistrationRequest;
-import com.smu.security.dto.RegistrationResponse;
+import com.smu.security.dto.*;
 import com.smu.security.jwt.JwtTokenService;
 import com.smu.security.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +43,12 @@ public class AuthController {
 		final ResetLinkResponse resetLinkResponse = userService.sendResetPasswordLind(email);
 
 		return ResponseEntity.ok(resetLinkResponse);
+	}
+
+	@PostMapping("/reset-password")
+	public ResponseEntity<ResetPasswordResponse> resetPasswordRequest(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+
+		return ResponseEntity.ok(userService.resetPassword(resetPasswordRequest));
 	}
 
 }

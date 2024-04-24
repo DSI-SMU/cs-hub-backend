@@ -1,10 +1,8 @@
 package com.smu.security.service;
 
-import com.smu.dto.ResetLinkResponse;
+import com.smu.security.dto.*;
 import com.smu.exceptions.MyRuntimeException;
-import com.smu.security.dto.AuthenticatedUserDto;
-import com.smu.security.dto.RegistrationRequest;
-import com.smu.security.dto.RegistrationResponse;
+import com.smu.security.jwt.JwtTokenManager;
 import com.smu.service.UserValidationService;
 import com.smu.model.User;
 import com.smu.model.UserRole;
@@ -16,8 +14,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 import static com.smu.common.Constants.FRONT_END_RESET_PASSWORD_URL;
 
@@ -32,6 +35,8 @@ public class UserServiceImpl implements UserService {
 
 	private static final String EMAIL_NOT_EXIST = "email_does_not_exist";
 
+	private static final String AUTH_UNKNOWN = "username_unknown";
+
 	private final UserRepository userRepository;
 
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -44,10 +49,18 @@ public class UserServiceImpl implements UserService {
 
 	private final ExceptionMessageAccessor exceptionMessageAccessor;
 
+	private final JwtTokenManager tokenManager;
+
 	@Override
 	public User findByUsername(String username) {
 
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+
+		return userRepository.findByEmail(email);
 	}
 
 	@Override
@@ -85,20 +98,52 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResetLinkResponse sendResetPasswordLind(String email) {
 
-		if (Boolean.FALSE.equals(existsByEmail(email))){
+		User user = findByEmail(email);
+
+		if (Objects.isNull(user)){
 			final String notExistMessage = exceptionMessageAccessor.getMessage(null, EMAIL_NOT_EXIST);
 			throw new MyRuntimeException(notExistMessage);
 		}
 
+		String token = tokenManager.generateToken(user);
+
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("noreply@example.com");
+		message.setFrom("noreply@smudsi.com");
 		message.setTo(email);
 		message.setSubject("Password Reset");
-		message.setText("Click the link below to reset your password:\n" + FRONT_END_RESET_PASSWORD_URL + "\nIf you did not request a password reset, please ignore this email.");
+		message.setText("Click the link below to reset your password:\n\n" + FRONT_END_RESET_PASSWORD_URL + "/" + token + "\n\nIf you did not request a password reset, please ignore this email.");
 
 		mailSender.send(message);
 		final String sendResetLinkSuccessMessage = generalMessageAccessor.getMessage(null, SEND_RESET_LINK_SUCCESSFUL, email);
 
 		return new ResetLinkResponse(sendResetLinkSuccessMessage);
+	}
+
+	@Override
+	public ResetPasswordResponse resetPassword(ResetPasswordRequest resetPasswordRequest) {
+		String message;
+		String password = resetPasswordRequest.getPassword();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication != null && authentication.isAuthenticated()) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserDetails userDetails) {
+				String username = userDetails.getUsername();
+
+				User user = findByUsername(username);
+				user.setPassword(bCryptPasswordEncoder.encode(password));
+				userRepository.save(user);
+				message = "Reset Password Successfully!";
+			} else {
+				log.error("Authentication principal is not an instance of UserDetails.");
+				throw new MyRuntimeException("Unable to get user details for password reset.");
+			}
+		} else {
+			log.error("Authentication object was null or not authenticated.");
+			throw new MyRuntimeException("User is not authenticated.");
+		}
+
+		return new ResetPasswordResponse(message);
 	}
 }
