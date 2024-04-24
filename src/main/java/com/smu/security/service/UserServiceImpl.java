@@ -1,6 +1,7 @@
 package com.smu.security.service;
 
-import com.smu.dto.ResetLinkRequest;
+import com.smu.dto.ResetLinkResponse;
+import com.smu.exceptions.MyRuntimeException;
 import com.smu.security.dto.AuthenticatedUserDto;
 import com.smu.security.dto.RegistrationRequest;
 import com.smu.security.dto.RegistrationResponse;
@@ -26,6 +27,8 @@ import static com.smu.common.Constants.FRONT_END_RESET_PASSWORD_URL;
 public class UserServiceImpl implements UserService {
 
 	private static final String REGISTRATION_SUCCESSFUL = "registration_successful";
+
+	private static final String SEND_RESET_LINK_SUCCESSFUL = "send_reset_link_successful";
 
 	private static final String EMAIL_NOT_EXIST = "email_does_not_exist";
 
@@ -80,20 +83,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendResetPasswordLind(ResetLinkRequest resetLinkRequest) {
-		final String email = resetLinkRequest.getEmail();
+	public ResetLinkResponse sendResetPasswordLind(String email) {
 
-		if (!existsByEmail(email)){
+		if (Boolean.FALSE.equals(existsByEmail(email))){
 			final String notExistMessage = exceptionMessageAccessor.getMessage(null, EMAIL_NOT_EXIST);
-			throw new
+			throw new MyRuntimeException(notExistMessage);
 		}
 
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("noreply@example.com");
 		message.setTo(email);
 		message.setSubject("Password Reset");
-		message.setText("Click the link below to reset your password: \n{}\nIf you did not request a password reset, please ignore this email." + FRONT_END_RESET_PASSWORD_URL);
+		message.setText("Click the link below to reset your password:\n" + FRONT_END_RESET_PASSWORD_URL + "\nIf you did not request a password reset, please ignore this email.");
 
 		mailSender.send(message);
+		final String sendResetLinkSuccessMessage = generalMessageAccessor.getMessage(null, SEND_RESET_LINK_SUCCESSFUL, email);
+
+		return new ResetLinkResponse(sendResetLinkSuccessMessage);
 	}
 }

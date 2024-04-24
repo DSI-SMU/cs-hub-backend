@@ -1,6 +1,6 @@
 package com.smu.security.service;
 
-import com.smu.dto.ResetLinkRequest;
+import com.smu.dto.ResetLinkResponse;
 import com.smu.security.dto.AuthenticatedUserDto;
 import com.smu.security.dto.RegistrationRequest;
 import com.smu.security.dto.RegistrationResponse;
@@ -16,6 +16,6 @@ public interface UserService {
 
 	AuthenticatedUserDto findAuthenticatedUserByUsername(String username);
 
-	void sendResetPasswordLind(ResetLinkRequest resetLinkRequest);
+	ResetLinkResponse sendResetPasswordLind(String email);
 
 }

@@ -1,6 +1,6 @@
 package com.smu.controller;
 
-import com.smu.dto.ResetLinkRequest;
+import com.smu.dto.ResetLinkResponse;
 import com.smu.security.dto.LoginRequest;
 import com.smu.security.dto.LoginResponse;
 import com.smu.security.dto.RegistrationRequest;
@@ -41,12 +41,12 @@ public class AuthController {
 		return ResponseEntity.ok(loginResponse);
 	}
 
-	@GetMapping("/reset-link")
-	public ResponseEntity<LoginResponse> resetLinkRequest(@Valid @RequestBody ResetLinkRequest resetLinkRequest) {
+	@GetMapping("/reset-link/{email}")
+	public ResponseEntity<ResetLinkResponse> resetLinkRequest(@Valid @PathVariable String email) {
 
-		userService.sendResetPasswordLind(resetLinkRequest);
+		final ResetLinkResponse resetLinkResponse = userService.sendResetPasswordLind(email);
 
-		return ResponseEntity.ok();
+		return ResponseEntity.ok(resetLinkResponse);
 	}
 
 }
