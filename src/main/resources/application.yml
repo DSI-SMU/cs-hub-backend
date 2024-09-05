@@ -5,9 +5,12 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/aidriver?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false}
-    username: ${SPRING_DATASOURCE_USERNAME:aidriver}
-    password: ${SPRING_DATASOURCE_PASSWORD:aidriver}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db:3306/cshub?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:user}
+    password: ${SPRING_DATASOURCE_PASSWORD:password@1}
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
   jpa:
     database-platform: org.hibernate.dialect.MySQL55Dialect
     hibernate:
@@ -22,7 +25,7 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${GMAIL_USERNAME:t.wangzhimin@gmail.com}
+    username: ${GMAIL_USERNAME:t.qiuyluo@gmail.com}
     password: ${GMAIL_PASSWORD:PASSWORD}
     properties:
       mail:
@@ -56,11 +59,11 @@ jwt:
   expirationMinute: 10
 
 swagger:
-  contact-name: Tony Wang
-  contact-mail: ${SWAGGER_CONTACT_MAIL:t.wangzhimin@gmail.com}
-  contact-url: ${SWAGGER_CONTACT_URL:https://zhiminwang.com}
-  app-name: ${SWAGGER_APP_NAME:SMU AI-Driver Web Application}
-  app-description: "AI-Driver is a tool developed by SMU DSI"
+  contact-name: Qiuyu Luo
+  contact-mail: ${SWAGGER_CONTACT_MAIL:t.qiuyluo@gmail.com}
+  contact-url: ${SWAGGER_CONTACT_URL:https://qiuyluo.com}
+  app-name: ${SWAGGER_APP_NAME:SMU CS Hub Web Application}
+  app-description: "CS Hub is a tool developed by SMU DSI"
   app-version: ${SWAGGER_APP_VERSION:2.0.0}
   app-license-url: ${SWAGGER_APP_LICENSE_URL:https://www.apache.org/licenses/LICENSE-2.0.html}
   app-license: ${SWAGGER_APP_LICENSE:Apache 2.0}

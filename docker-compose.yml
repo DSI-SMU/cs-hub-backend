@@ -10,18 +10,28 @@ services:
       - "3306:3306" # MySQL uses port 3306
     environment:
       MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: your_database_name # Replace with your desired database name
-      MYSQL_USER: your_mysql_user # Replace with your desired MySQL username
-      MYSQL_PASSWORD: your_mysql_password # Replace with your desired MySQL password
+      MYSQL_DATABASE: cshub # Replace with your desired database name
+      MYSQL_USER: user # Replace with your desired MySQL username
+      MYSQL_PASSWORD: password@1 # Replace with your desired MySQL password
+    networks:
+      - my-network
 
   app:
     container_name: app
-    image: rimmelasghar/spring-boot-boilerplate:2.2.0
+    # image: rimmelasghar/spring-boot-boilerplate:2.2.0
+    image: springio/gs-spring-boot-docker
     ports:
-      - "8080:8080"
+      - "8088:8088"
     environment:
-      - "SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/your_database_name" # Replace 'your_database_name' with the same name you used for MYSQL_DATABASE in the db service.
-      - "SPRING_DATASOURCE_USERNAME=your_mysql_user" # Replace 'your_mysql_user' with the same name you used for MYSQL_USER in the db service.
-      - "SPRING_DATASOURCE_PASSWORD=your_mysql_password" # Replace 'your_mysql_password' with the same name you used for MYSQL_PASSWORD in the db service.
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/cshub" # Replace 'your_database_name' with the same name you used for MYSQL_DATABASE in the db service.
+      - "SPRING_DATASOURCE_USERNAME=user" # Replace 'your_mysql_user' with the same name you used for MYSQL_USER in the db service.
+      - "SPRING_DATASOURCE_PASSWORD=password@1" # Replace 'your_mysql_password' with the same name you used for MYSQL_PASSWORD in the db service.
     depends_on:
       - db
+    networks:
+      - my-network
+    entrypoint: ["./wait-for-it.sh", "db:3306", "--", "java", "-jar", "ai-driver.jar"]
+
+networks:
+  my-network:
+    driver: bridge
