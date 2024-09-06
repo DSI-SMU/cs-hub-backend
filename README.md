@@ -17,6 +17,7 @@ First, use Maven to clean and build the project:
 
 ```bash
 mvn clean install
+```
 
 If the build succeeds, you should see a BUILD SUCCESS message.
 
@@ -25,6 +26,7 @@ Run the following command to start the application and database containers:
 
 ```bash
 docker-compose up
+```
 
 This will spin up two containers:
 
@@ -36,6 +38,7 @@ Once the application starts, you can access it via the following URL:
 
 ```arduino
 http://localhost:8080
+```
 
 Note: The project uses a `wait-for-it.sh` script to ensure MySQL is fully ready before the application starts.
 
