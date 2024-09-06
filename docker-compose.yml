@@ -21,16 +21,16 @@ services:
     # image: rimmelasghar/spring-boot-boilerplate:2.2.0
     image: springio/gs-spring-boot-docker
     ports:
-      - "8088:8088"
+      - "8080:8080"
     environment:
       - "SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/cshub" # Replace 'your_database_name' with the same name you used for MYSQL_DATABASE in the db service.
       - "SPRING_DATASOURCE_USERNAME=user" # Replace 'your_mysql_user' with the same name you used for MYSQL_USER in the db service.
       - "SPRING_DATASOURCE_PASSWORD=password@1" # Replace 'your_mysql_password' with the same name you used for MYSQL_PASSWORD in the db service.
+      - "SERVER_PORT=8080"
     depends_on:
       - db
     networks:
       - my-network
-    entrypoint: ["./wait-for-it.sh", "db:3306", "--", "java", "-jar", "ai-driver.jar"]
 
 networks:
   my-network:
