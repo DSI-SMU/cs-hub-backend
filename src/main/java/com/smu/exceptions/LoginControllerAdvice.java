@@ -1,6 +1,6 @@
 package com.smu.exceptions;
 
-import com.smu.controller.AuthController;
+import com.smu.controller.user.AuthController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
