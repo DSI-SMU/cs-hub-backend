@@ -6,7 +6,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db:3306/cshub?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/cshub?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true}
     username: ${SPRING_DATASOURCE_USERNAME:user}
     password: ${SPRING_DATASOURCE_PASSWORD:password@1}
     hikari:
@@ -26,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${GMAIL_USERNAME:t.qiuyluo@gmail.com}
-    password: ${GMAIL_PASSWORD:PASSWORD}
+    username: ${GMAIL_USERNAME:t.wangzhimin@gmail.com}
+    password: ${GMAIL_PASSWORD:basz zyap hzvt tfdr}
     properties:
       mail:
         smtp:
