@@ -65,6 +65,63 @@ http://localhost:8080/health
 ```
 This will check if the service is up and running.
 
+## Project Structure
+
+This project is a Spring Boot application that follows a modular architecture, organized into different packages for maintainability and scalability. Below is a detailed breakdown of the project structure.
+
+
+```bash
+.
+├── .mvn/wrapper
+│   ├── maven-wrapper.jar
+│   ├── maven-wrapper.properties
+├── imgs
+│   ├── springboot-boilerplate.jpg
+│   ├── swagger-1.jpg
+│   ├── swagger-2.jpg
+├── src/main
+│   ├── java/com/smu
+│   │   ├── common
+│   │   │   └── # Common utilities, constants, and helpers.
+│   │   ├── configuration
+│   │   │   └── # Configuration classes for Spring beans, security, etc.
+│   │   ├── controller
+│   │   │   └── # REST API controllers that handle incoming HTTP requests.
+│   │   ├── exceptions
+│   │   │   └── # Custom exception handling for the application.
+│   │   ├── model
+│   │   │   └── # Entity classes and data models representing the application’s domain.
+│   │   ├── repository
+│   │   │   └── # Data access layer, containing interfaces for database operations.
+│   │   ├── security
+│   │   │   └── # Security configuration, e.g., authentication, authorization.
+│   │   ├── service
+│   │   │   └── # Service layer that handles business logic.
+│   │   ├── utils
+│   │       └── # Utility classes for common operations like date parsing, validation, etc.
+│   ├── resources
+│   │   ├── messages
+│   │   │   └── # Resource bundles for localized messages.
+│   │   ├── exception
+│   │   │   └── # Templates for exception messages.
+│   │   ├── general
+│   │   │   └── # General resource files, such as banners.
+│   │   ├── validation
+│   │       └── # Validation messages and configuration.
+│   ├── application.yml
+│   ├── banner.txt
+├── .DS_Store
+├── .dockerignore
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── docker-compose.yml
+├── local-docker-compose.yml
+├── pom.xml
+```
+
+
 ## Configuration Files
 The project’s configuration file is application.yml, which sets the server port to 8080.
 Database details are configured in the Docker Compose file local-docker-compose.yml.
