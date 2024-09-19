@@ -1,6 +1,6 @@
 FROM openjdk:17
 WORKDIR app
-ARG JAR_FILE=target/ai-driver.jar
-COPY ${JAR_FILE} ai-driver.jar
+ARG JAR_FILE=target/cs-hub.jar
+COPY ${JAR_FILE} cs-hub.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","ai-driver.jar"]
+ENTRYPOINT ["java","-jar","cs-hub.jar"]
