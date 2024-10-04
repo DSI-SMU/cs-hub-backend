@@ -232,8 +232,7 @@ Here’s a generalized step-by-step guide to develop POST and GET APIs, with the
   curl -X GET http://localhost:8080/api/entities
   ```
 
-By following these steps, you can create a fully functional POST API to add entities and a GET API to retrieve all entities in a Spring Boot application.
-
+By following these steps, you can create a fully functional POST API or a GET API simply. You can also implement more complicated business logic by defining custom query methods/sevice functions/controller.
 
 
 
