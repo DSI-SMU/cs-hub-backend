@@ -34,16 +34,26 @@ public class SecurityConfiguration {
 
 		//@formatter:off
 
-		return http.cors().and().csrf().disable()
+//		return http.cors().and().csrf().disable()
+//				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//				.authorizeRequests()
+//				.antMatchers("/auth/register","/health","/auth/login","/auth/reset-link/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/**").permitAll()
+//				.anyRequest().authenticated().and()
+//				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//				.and().build();
+
+		//@formatter:on
+
+
+				return http.cors().and().csrf().disable()
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers("/auth/register","/health","/auth/login","/auth/reset-link/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/**").permitAll()
-				.anyRequest().authenticated().and()
+				.anyRequest().permitAll().and()
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().build();
-
-		//@formatter:on
 	}
 
 
