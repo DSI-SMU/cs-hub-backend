@@ -160,6 +160,7 @@ Here’s a generalized step-by-step guide to develop POST and GET APIs, with the
 
   **Example**:
   ```java
+  @Repository
   public interface EntityNameRepository extends JpaRepository<EntityName, Long> {
       // You can define custom query methods here
   }
