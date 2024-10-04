@@ -46,14 +46,13 @@ public class SecurityConfiguration {
 		//@formatter:on
 
 
-				return http.cors().and().csrf().disable()
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+		http
 				.authorizeRequests()
-				.antMatchers("/auth/register","/health","/auth/login","/auth/reset-link/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/**").permitAll()
-				.anyRequest().permitAll().and()
-				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().build();
+				.anyRequest().permitAll()
+				.and()
+				.csrf().disable();
+
+		return http.build();
 	}
 
 
