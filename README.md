@@ -195,7 +195,7 @@ Here’s a generalized step-by-step guide to develop POST and GET APIs, with the
   **Example**:
   ```java
   @RestController
-  @RequestMapping("/api/entities")
+  @RequestMapping("/entities")
   public class EntityNameController {
 
       @Autowired
@@ -217,8 +217,8 @@ Here’s a generalized step-by-step guide to develop POST and GET APIs, with the
 ## 5. **Test the APIs**
 - **Purpose**: Verify that both POST and GET APIs work as expected.
 - **How**: After running the Spring Boot project, use Postman or CURL to test the endpoints:
-  - **POST Request**: Send a POST request with JSON data to `/api/entities`.
-  - **GET Request**: Send a GET request to `/api/entities` to retrieve all entities.
+  - **POST Request**: Send a POST request with JSON data to `/entities`.
+  - **GET Request**: Send a GET request to `/entities` to retrieve all entities.
 
   **POST Request Example**:
   ```json
@@ -230,7 +230,7 @@ Here’s a generalized step-by-step guide to develop POST and GET APIs, with the
 
   **GET Request Example**:
   ```bash
-  curl -X GET http://localhost:8080/api/entities
+  curl -X GET http://localhost:8080/entities
   ```
 
 By following these steps, you can create a fully functional POST API or a GET API simply. You can also implement more complicated business logic by defining custom query methods/sevice functions/controller.
