@@ -1,8 +1,10 @@
 package com.smu.controller;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.health.Health;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class HealthControllerTest {
 
     @Test
