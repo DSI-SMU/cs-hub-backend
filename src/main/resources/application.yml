@@ -1,15 +1,12 @@
 server:
+  address: 0.0.0.0
   port: 8080
   error:
     include-message: always
 
 spring:
   datasource:
-#    Dockerized_App_Setup
-#    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db:3306/cshub?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true}
-#    Local_Setup
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/cshub?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true}
-
     username: ${SPRING_DATASOURCE_USERNAME:user}
     password: ${SPRING_DATASOURCE_PASSWORD:password@1}
     hikari:
@@ -31,8 +28,6 @@ spring:
     port: 587
     username: ${GMAIL_USERNAME:t.wangzhimin@gmail.com}
     password: ${GMAIL_PASSWORD:basz zyap hzvt tfdr}
-#    username: ${GMAIL_USERNAME:smudsi308@gmail.com}
-#    password: ${GMAIL_PASSWORD:password@1}
     properties:
       mail:
         smtp:
