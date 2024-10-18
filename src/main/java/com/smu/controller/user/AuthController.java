@@ -1,4 +1,4 @@
-package com.smu.controller;
+package com.smu.controller.user;
 
 import com.smu.security.dto.*;
 import com.smu.security.jwt.JwtTokenService;
